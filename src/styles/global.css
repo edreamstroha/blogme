@@ -1,0 +1,30 @@
+/* maybe try these colors #BA807C (pink) ; DDD6CC (cream)*/
+
+@font-face {
+    font-family: 'PlayfairDisplay';
+    src: url('/blogme/fonts/PlayfairDisplay.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+html {
+    background: #DDD6CC;
+    width: 100vw;
+    height: 100vh;
+    font-family: "PlayfairDisplay", 'Times New Roman', Times, serif;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
