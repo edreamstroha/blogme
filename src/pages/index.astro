@@ -1,5 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro"
+
+let response = await fetch("https://kanjiapi.dev/v1/kanji/all")
+const kanjList = await response.json();
+const currentKanji = kanjList[Math.floor(Math.random() * (kanjList.length))];
+response = await fetch(`https://kanjiapi.dev/v1/kanji/${currentKanji}`)
+const currentKanjiInfo = await response.json()
+console.log(currentKanjiInfo)
+
 ---
 <Layout title={"home."}>
+<main>
+    <p class="kanji">
+    {currentKanji} 
+    <span id="kanji-reading">({currentKanjiInfo.on_readings})</span>
+    </p>
+    <div class="kanji-desc">
+        <p>
+        {currentKanjiInfo.meanings.map((meaning)=><span>{meaning} / </span>)}
+        </p>
+    </div>
+</main>
 </Layout>
+<style>
+    main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .kanji {
+        font-size: 2.5rem;
+    }
+
+    .kanji-desc {
+        font-size: 1.2rem;
+        width: 50%;
+        text-align: center;
+    }
+
+    #kanji-reading {
+        font-size: 2rem;
+    }
+</style>

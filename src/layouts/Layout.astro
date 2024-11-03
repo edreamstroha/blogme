@@ -14,20 +14,36 @@ import "../styles/global.css"
         <title>{title}</title>
     </head>
     <body>
-        <main class="main-content">
-        <Header />
-            <slot />
+        <main class="page">
+            <div class="header">
+                <Header />
+            </div>
+            <div class="main-content">
+                <slot />
+            </div>
         </main>
     </body>
 </html>
 <style>
-    .main-content {
+    .page {
         /* background: #26233a; */
         border: solid #26233a;
         border-width: 0px 1px 0px 1px;
         width: 50%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+
+    .header {
+        padding: 10px;
+        width: 100%;
+        height: 10%;
+    }
+
+    .main-content {
+        width: 100%;
+        flex: 1;
     }
 </style>
