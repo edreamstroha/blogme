@@ -7,19 +7,19 @@ const currentKanji = kanjList[Math.floor(Math.random() * (kanjList.length))];
 response = await fetch(`https://kanjiapi.dev/v1/kanji/${currentKanji}`)
 const currentKanjiInfo = await response.json()
 console.log(currentKanjiInfo)
-
 ---
 <Layout title={"home."}>
 <main>
+    <div class="image-div">
+        <img src="/blogme/images/miyaread.png" width="250px"/>
+    </div>
     <p class="kanji">
     {currentKanji} 
     <span id="kanji-reading">({currentKanjiInfo.on_readings})</span>
     </p>
-    <div class="kanji-desc">
-        <p>
-        {currentKanjiInfo.meanings.map((meaning)=><span>{meaning} / </span>)}
-        </p>
-    </div>
+    <p class="kanji-desc">
+    {currentKanjiInfo.meanings}
+    </p>
 </main>
 </Layout>
 <style>
