@@ -14,8 +14,8 @@ message = "posts posts and posts"
 <div class="footer">
     <div class="line"></div>
     <div class="footer-content">
-        <p>welcome to the blog.</p>
-        <p>{message}</p>
+        <p class="greet">welcome to the blog.</p>
+        <p class="dyn-msg">{message}</p>
     </div>
 </div>
 
@@ -42,5 +42,21 @@ message = "posts posts and posts"
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    /* media queries*/
+    @media (min-width: 320px) {
+        .dyn-msg {
+            display: none;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .dyn-msg {
+            display: block;
+        }
+    }
+
+    @media (min-width: 1024px) {
     }
 </style>
