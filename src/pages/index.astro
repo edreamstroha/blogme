@@ -1,12 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro"
-
-let response = await fetch("https://kanjiapi.dev/v1/kanji/all")
-const kanjList = await response.json();
-const currentKanji = kanjList[Math.floor(Math.random() * (kanjList.length))];
-response = await fetch(`https://kanjiapi.dev/v1/kanji/${currentKanji}`)
-const currentKanjiInfo = await response.json()
-console.log(currentKanjiInfo)
 ---
 <Layout title={"home."}>
 <main>
@@ -14,14 +7,36 @@ console.log(currentKanjiInfo)
         <img src="/blogme/images/miyaread.png" width="250px"/>
     </div>
     <p class="kanji">
-    {currentKanji} 
-    <span id="kanji-reading">({currentKanjiInfo.on_readings})</span>
+    <span id="kanji-reading">...</span>
     </p>
     <p class="kanji-desc">
-    {currentKanjiInfo.meanings}
+    -- -- --
     </p>
 </main>
 </Layout>
+
+<script>
+    let response = await fetch("https://kanjiapi.dev/v1/kanji/all")
+    const kanjiList = await response.json();
+    const currentKanji = kanjiList[Math.floor(Math.random() * (kanjiList.length))];
+    response = await fetch(`https://kanjiapi.dev/v1/kanji/${currentKanji}`)
+    const currentKanjiInfo = await response.json()
+
+    const kanjiReadingElement = document.createElement("span")
+    const kanjiElement = document.querySelector(".kanji")
+    const kanjiDescElement = document.querySelector(".kanji-desc")
+    kanjiReadingElement.setAttribute("id", "kanji-reading")
+    
+    console.log(currentKanjiInfo)
+    
+    kanjiElement.textContent = ""
+    kanjiElement.appendChild(document.createTextNode(`${currentKanjiInfo["kanji"]}`))
+    kanjiElement.appendChild(kanjiReadingElement);
+    kanjiReadingElement.appendChild(document.createTextNode(` (${currentKanjiInfo["kun_readings"][0]} )`))
+    kanjiDescElement.textContent = ""
+    kanjiDescElement.appendChild(document.createTextNode(`${currentKanjiInfo["meanings"].slice(1)}`))
+</script>
+
 <style>
     main {
         width: 100%;
@@ -37,6 +52,10 @@ console.log(currentKanjiInfo)
         font-size: 2.5rem;
     }
 
+    #kanji-reading {
+        color: red;
+    }
+
     .kanji-desc {
         font-size: 1.2rem;
         width: 50%;
@@ -45,5 +64,34 @@ console.log(currentKanjiInfo)
 
     #kanji-reading {
         font-size: 2rem;
+    }
+
+    /* media queries*/
+    @media (min-width: 320px) {
+
+        img {
+            width: 200px;
+        }
+
+        .kanji {
+            font-size: 2rem;
+        }
+
+        main {
+            padding: 1rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        img {
+            width: 250px;
+        }
+
+        .kanji {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
     }
 </style>
